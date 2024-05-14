@@ -3,7 +3,31 @@
 # Last Updated: 05-14-2024
 # Version 0.1
 
+#create URL variable
+$brainpower = "https://github.com/Vault95/BrainPower/releases/download/BrainPower/BrainPower-v0.2.zip"
 
+#Download BrainPower zip file from github to current directory
+try {
+	$ProgressPreference = 'SilentlyContinue'
+	Write-Host "Downloading... Be patient lil bitch"
+    Invoke-WebRequest -Uri $brainpower -OutFile $PSScriptRoot\BrainPower-v0.2.zip
+} catch {
+    # Catch will pick up any non zero error code returned
+    # You can do anything you like in this block to deal with the error, examples below:
+    # $_ returns the error details
+    # This will just write the error
+    Write-Host "Download failed. Yess at Codsworth. Error: $_"
+    # If you want to pass the error upwards as a system error and abort your powershell script or function
+    Throw "Download failed. Yess at Codsworth. Error: $_"
+	Start-Sleep -Seconds 5
+}
+
+Write-Host "Download Complete."
+
+Expand-Archive -Path BrainPower-v0.2.zip -DestinationPath $PSScriptRoot -Force
+Write-Host "Extraction Complete."
+Write-Host "Proceed with Runtime installation."
+Write-Host "If Microsoft Runtime is already installed, you can cancel installation of Runtime and move on."
 #Install Runtime 8.0
 
 try {
@@ -31,6 +55,8 @@ switch  ($msgBoxInput)
           'Yes' 
           {
             #Install SPT
+Write-Host "Proceed with SPT installation."
+Write-Host "SPT Installer Launching..."
 try {
     Start-Process -FilePath "SPTInstaller.exe" -wait
 } catch {
@@ -54,11 +80,13 @@ switch  ($msgBoxInput)
       {
           'Yes' 
           {
-            # your code here#Extract modpack + config files for server, overwrite existing
+            
+		#Extract modpack + config files for server, overwrite existing
+Write-Host "Extracting ModPack."
 Expand-Archive -Path NewInstall.zip -DestinationPath $PSScriptRoot -Force
-
+Write-Host "Extraction complete."
 Start-Sleep -Seconds 2
-
+Write-Host "Running Firewall Fixer..."
 #Run Firewall Fixer
 try {
     Start-Process "FikaFirewallFixer.exe" -wait
@@ -71,9 +99,11 @@ try {
     # If you want to pass the error upwards as a system error and abort your powershell script or function
     Throw "Firewall Fix failed, ask Codsworth for help or try again. Error: $_"
 }
-
+Write-Host "If you did not install firewall fixer, you may have connection issues!!!."
+Write-Host "Finishing up...."
+Start-Sleep -Seconds 5
 Add-Type -AssemblyName PresentationCore,PresentationFramework
-$msgBody = "Install completed. Don't forgot to create a desktop shortcut for Aki.Launcher.exe, this is how you will join the server. UncleMommy is a bitch."
+$msgBody = "Install completed. Create a desktop shortcut for Aki.Launcher.exe, this is how you will join the server. UncleMommy is a bitch."
 [System.Windows.MessageBox]::Show($msgBody)
             
             Return "Runs Code"

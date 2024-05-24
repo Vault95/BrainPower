@@ -1,10 +1,10 @@
 # The Boys Fika Co-Op Server Pack - Client Setup Script
 # Author: Codsworth
-# Last Updated: 05-17-2024
-# Version 0.3
+# Last Updated: 05-22-2024
+# Version 0.6
 
 #create URL variable
-$setup = "https://github.com/Vault95/BrainPower/releases/download/TheBoysServerPack/Setup1.0.zip"
+$setup = "https://github.com/Vault95/BrainPower/releases/download/tarkov/Setup1.3.zip"
 
 #Download BrainPower zip file from github to current directory
 try {

@@ -37,8 +37,8 @@ if "%localversion%"=="%publicversion%" powershell -ExecutionPolicy Bypass -File 
 :: If version does NOT match, download new install script files from github
 if NOT "%localversion%"=="%publicversion%" echo Installer is not up to date, updating now...
 :: Get current version file, setup & update scripts from cloud
-::if NOT "%localversion%"=="%publicversion%" powershell -Command "Invoke-WebRequest 'https://www.dropbox.com/scl/fi/3w7l7kgrkbwv7muj1jdsq/Setup.ps1?rlkey=pxhb32hnrba94t5fnnqvtbkd6&st=2nvqo2a8&dl=1' -OutFile %~dp0Setup.ps1"
-::if NOT "%localversion%"=="%publicversion%" powershell -Command "Invoke-WebRequest 'https://www.dropbox.com/scl/fi/ennk9wdqh8yk0vathqngg/Update.ps1?rlkey=g9e6xzhauqvhjsk64e49rc5ef&st=ui6vkiyo&dl=1' -OutFile %~dp0Update.ps1"
-::if NOT "%localversion%"=="%publicversion%" powershell -Command "Invoke-WebRequest 'https://www.dropbox.com/scl/fi/spl8kfpgvvuuvq1qhjl2z/version.txt?rlkey=lzzfb3cf67zqatzn5978gxpfy&st=e4g5vih4&dl=1' -OutFile %~dp0version.txt"
+if NOT "%localversion%"=="%publicversion%" powershell -Command "Invoke-WebRequest 'https://www.dropbox.com/scl/fi/3w7l7kgrkbwv7muj1jdsq/Setup.ps1?rlkey=pxhb32hnrba94t5fnnqvtbkd6&st=2nvqo2a8&dl=1' -OutFile %~dp0Setup.ps1"
+if NOT "%localversion%"=="%publicversion%" powershell -Command "Invoke-WebRequest 'https://www.dropbox.com/scl/fi/ennk9wdqh8yk0vathqngg/Update.ps1?rlkey=g9e6xzhauqvhjsk64e49rc5ef&st=ui6vkiyo&dl=1' -OutFile %~dp0Update.ps1"
+if NOT "%localversion%"=="%publicversion%" powershell -Command "Invoke-WebRequest 'https://www.dropbox.com/scl/fi/spl8kfpgvvuuvq1qhjl2z/version.txt?rlkey=lzzfb3cf67zqatzn5978gxpfy&st=e4g5vih4&dl=1' -OutFile %~dp0version.txt"
 if NOT "%localversion%"=="%publicversion%" powershell -Command "[reflection.assembly]::LoadWithPartialName('System.Windows.Forms')|out-null;[windows.forms.messagebox]::Show('Installer has performed a required update. Please run Update.bat file again to proceed.')"
 rd /s /q %~dp0temp
